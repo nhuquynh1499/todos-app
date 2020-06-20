@@ -42,26 +42,48 @@ class App extends Component {
   };
 
   onAddClicked = () => {
-    console.log("Clicked");
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        { content: 'New item', isComplete: false },
+      ]
+    })
   };
 
-  onShowEditInput = (item) => {
+  onShowEditInput = (item) => { 
     return (event) => {
+      console.log(item);
       const inputContent = document.getElementsByClassName("inputContent");
-      console.log(inputContent);
-      for (var i = 0; i < inputContent.length; i++) {
-        if (inputContent[i].defaultValue === item.content)
+      const editContent = document.getElementsByClassName("editContent");
+      
+      for (let i = 0; i < inputContent.length; i++) {
+        if (inputContent[i].defaultValue === item.content) {
+          editContent[i].setAttribute("class", "editContent showEditContent");
           inputContent[i].focus();
+        }
       }
+
+      this.setState({
+        editItem: item.content
+      })
     };
   };
 
   onEditClick = (item) => {
     return (event) => {
       const inputContent = document.getElementsByClassName("inputContent");
-      console.log(item);
-      for (let i = 0; i < inputContent.length; i++)
-        console.log(inputContent[i]);
+      const editContent = document.getElementsByClassName("editContent");
+      
+      for (let i = 0; i < inputContent.length; i++) {
+        if (inputContent[i].defaultValue === item.content) {
+          editContent[i].setAttribute("class", "editContent");
+        }
+      }
+      item.content = this.state.editItem;
+      this.setState({
+        editItem: ''
+      })
+      console.log(this.state.todos)
     };
   };
 
@@ -71,7 +93,6 @@ class App extends Component {
     this.setState({
       [name]: value,
     });
-    console.log("ss");
   };
 
   render() {
@@ -85,7 +106,7 @@ class App extends Component {
               <div>
                 <span className="notification">You have no list</span>
               </div>
-              <img className="icon" src={IconBackground} />
+              <img className="icon" src={IconBackground} alt="" />
             </div>
           )}
           {todos.length > 0 && (

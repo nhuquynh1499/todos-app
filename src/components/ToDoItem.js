@@ -33,13 +33,13 @@ class ToDoItem extends Component {
               onChange={onChange}
             />
             <button className="btn-edit" onClick={onEditClick}>
-              Ồ kê
+              Go
             </button>
           </div>
         </div>
         <div onClick={onShowEditInput}>
-          {!item.isComplete && <img src={IconEdit} />}
-          {item.isComplete && <img src={IconEditDone} />}
+          { !item.isComplete && <img src={IconEdit} alt="" /> }
+          { item.isComplete && <img src={IconEditDone} alt="" /> }
         </div>
       </div>
     );
