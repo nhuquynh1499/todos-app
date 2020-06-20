@@ -5,24 +5,46 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   font-family: 'Varela Round', sans-serif;
 }
 
-.App .noContent .icon{
+.App .Content {
+  width: 100%;
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App .Content .noContent .icon{
   max-height: 200px;
   margin-top: 10px;
 }
 
-.App .noContent .notification{
+.App .Content .noContent .notification{
   background-color: white;
   border-radius: 3px;
   padding: 5px 10px;
   font-size: 12px;
 }
 
-.App .Content {
+.App .Content .hasContent {
   width: 100%;
+  align-self: flex-start;
 }
+
+.App .Content .hasContent .List {
+  margin: 20px 0px;
+}
+
+.App .Content .hasContent p {
+  text-align: left;
+  margin: 5px 20px;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #fff;
+  font-weight: 700;
+}
+

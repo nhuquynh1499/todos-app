@@ -1,16 +1,46 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import './ToDoItem.css';
+import React, { Component } from "react";
+import classNames from "classnames";
+import "./ToDoItem.css";
+import IconEdit from "../images/edit.svg";
+import IconEditDone from "../images/edit-done.svg";
 
 class ToDoItem extends Component {
   render() {
-    const { item, index, onClick } = this.props;
+    const {
+      item,
+      index,
+      onClick,
+      onShowEditInput,
+      onEditClick,
+      onChange,
+    } = this.props;
     return (
-      <div className={classNames('ToDoItem', {
-        'ToDoItem-done': item.isComplete === true
-      })} onClick={onClick} >
+      <div
+        className={classNames("ToDoItem", {
+          "ToDoItem-done": item.isComplete === true,
+        })}
+      >
         <span className="stt">{parseInt(index) + 1}.</span>
-        <span>{item.content}</span>
+        <div className="showContent">
+          <span className="itemContent" onClick={onClick}>
+            {item.content}
+          </span>
+          <div className="editContent">
+            <input
+              name="editItem"
+              className="inputContent"
+              defaultValue={item.content}
+              onChange={onChange}
+            />
+            <button className="btn-edit" onClick={onEditClick}>
+              Ồ kê
+            </button>
+          </div>
+        </div>
+        <div onClick={onShowEditInput}>
+          {!item.isComplete && <img src={IconEdit} />}
+          {item.isComplete && <img src={IconEditDone} />}
+        </div>
       </div>
     );
   }
