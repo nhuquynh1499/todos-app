@@ -9,11 +9,11 @@ class ToDoItem extends Component {
   render() {
     const {
       item,
-      showEdit,
+      idNow,
       index,
       onClick,
       onShowEditInput,
-      onEditClick,
+      onKeyUp,
       onChange,
       onDeleteItem,
     } = this.props;
@@ -30,7 +30,7 @@ class ToDoItem extends Component {
           </span>
           <div
             className={classNames("editContent", {
-              showEditContent: showEdit === item.id,
+              showEditContent: idNow === item.id,
             })}
           >
             <input
@@ -40,10 +40,11 @@ class ToDoItem extends Component {
               onChange={onChange}
               id={item.id}
               autoFocus
+              onKeyUp={onKeyUp}
             />
-            <button className="btn-edit" onClick={onEditClick}>
+            {/* <button className="btn-edit" onClick={onEditClick}>
               Go
-            </button>
+            </button> */}
           </div>
         </div>
         <div onClick={onShowEditInput}>
@@ -51,7 +52,7 @@ class ToDoItem extends Component {
           {item.isComplete && <img src={IconEditDone} alt="" />}
         </div>
         <div onClick={onDeleteItem}>
-          <img src={IconDelete} />
+          <img src={IconDelete} alt=""/>
         </div>
       </div>
     );

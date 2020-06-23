@@ -25,7 +25,7 @@
 
 .ToDoItem img {
   width: 16px;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .ToDoItem-done {
@@ -40,11 +40,16 @@
 
 .ToDoItem .showContent .editContent {
   display: none;
+  width: 100%;
 }
 
 .ToDoItem .showContent .showEditContent {
   display: block;
   position: absolute;
+}
+
+.ToDoItem .showContent .itemContent {
+  width: 100%;
 }
 
 .ToDoItem .showContent .showEditContent .inputContent {

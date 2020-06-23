@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       newItem: "",
       editItem: "",
-      showEdit: "abc",
+      idNow: "abc",
       todos: localStorage.getItem("todos")
         ? JSON.parse(localStorage.getItem("todos"))
         : [],
@@ -63,7 +63,7 @@ class App extends Component {
           ...this.state.todos,
           newItem
         ],
-        showEdit: idItem
+        idNow: idItem
       }, () => {
         localStorage.setItem('todos', JSON.stringify(this.state.todos));
         this.onShowEditInput(newItem.id) 
@@ -81,7 +81,7 @@ class App extends Component {
 
       this.setState({
         editItem: editItem.content,
-        showEdit: id
+        idNow: id
       }, () => {
         const inputContent = document.getElementById(id);
         console.log(inputContent);
@@ -91,20 +91,20 @@ class App extends Component {
     };
   };
 
-  onEditClick = (id) => {
-    const { todos } = this.state;
-    const editItem = todos.find((item) => {
-      return item.id === id
-    })
-    return (event) => {
+  onKeyUp = (event) => {
+    if (event.keyCode === 13) {
+      const { todos } = this.state;
+      const editItem = todos.find((item) => {
+        return item.id === this.state.idNow;
+      })
       editItem.content = this.state.editItem ? this.state.editItem : editItem.content;
       this.setState({
         editItem: "",
-        showEdit: ""
+        idNow: ""
       });
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
     };
-  };
+  }
 
   onChange = (e) => {
     const name = e.target.name;
@@ -133,7 +133,7 @@ class App extends Component {
   }
 
   render() {
-    const { todos, showEdit } = this.state;
+    const { todos, idNow } = this.state;
     return (
       <div className="App">
         <Header />
@@ -155,12 +155,12 @@ class App extends Component {
                     return (
                       <ToDoItem
                         item={item}
-                        showEdit={showEdit}
+                        idNow={idNow}
                         index={index}
                         key={item.id}
                         onClick={this.onItemClicked(item)}
                         onShowEditInput={this.onShowEditInput(item.id)}
-                        onEditClick={this.onEditClick(item.id)}
+                        onKeyUp={this.onKeyUp}
                         onChange={this.onChange}
                         onDeleteItem={this.onDeleteItem(item)}
                       />
@@ -174,12 +174,12 @@ class App extends Component {
                     return (
                       <ToDoItem
                         item={item}
-                        showEdit={showEdit}
+                        idNow={idNow}
                         index={index}
                         key={item.id}
                         onClick={this.onItemClicked(item)}
                         onShowEditInput={this.onShowEditInput(item.id)}
-                        onEditClick={this.onEditClick(item.id)}
+                        onKeyUp={this.onKeyUp}
                         onChange={this.onChange}
                         onDeleteItem={this.onDeleteItem(item)}
                       />
