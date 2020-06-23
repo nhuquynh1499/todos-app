@@ -8,14 +8,14 @@ import IconDelete from "../images/delete.svg";
 class ToDoItem extends Component {
   render() {
     const {
-      item, 
+      item,
       showEdit,
       index,
       onClick,
       onShowEditInput,
       onEditClick,
       onChange,
-      onDeleteItem
+      onDeleteItem,
     } = this.props;
     return (
       <div
@@ -28,9 +28,9 @@ class ToDoItem extends Component {
           <span className="itemContent" onClick={onClick}>
             {item.content}
           </span>
-          <div 
+          <div
             className={classNames("editContent", {
-              "showEditContent": showEdit === item.id
+              showEditContent: showEdit === item.id,
             })}
           >
             <input
@@ -39,6 +39,7 @@ class ToDoItem extends Component {
               defaultValue={item.content}
               onChange={onChange}
               id={item.id}
+              autoFocus
             />
             <button className="btn-edit" onClick={onEditClick}>
               Go
@@ -46,8 +47,8 @@ class ToDoItem extends Component {
           </div>
         </div>
         <div onClick={onShowEditInput}>
-          { !item.isComplete && <img src={IconEdit} alt="" /> }
-          { item.isComplete && <img src={IconEditDone} alt="" /> }
+          {!item.isComplete && <img src={IconEdit} alt="" />}
+          {item.isComplete && <img src={IconEditDone} alt="" />}
         </div>
         <div onClick={onDeleteItem}>
           <img src={IconDelete} />
