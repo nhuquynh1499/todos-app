@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import logo from './logo.svg';
+import shortid from 'shortid';
 import "./App.css";
 import ToDoItem from "./components/ToDoItem";
 import Footer from "./components/Footer";
@@ -12,11 +12,15 @@ class App extends Component {
     this.state = {
       newItem: "",
       editItem: "",
-      todos: [
-        { content: "Go to market", isComplete: true },
-        { content: "Buy to food", isComplete: false },
-        { content: "Make dinner", isComplete: false },
-      ],
+      showEdit: "abc",
+      todos: localStorage.getItem("todos")
+        ? JSON.parse(localStorage.getItem("todos"))
+        : [],
+      // todos: [
+      //   { content: "Go to market", isComplete: true },
+      //   { content: "Buy to food", isComplete: false },
+      //   { content: "Make dinner", isComplete: false },
+      // ],
     };
 
     // this.onAddClicked = this.onAddClicked.bind(this);
@@ -28,62 +32,77 @@ class App extends Component {
       const isComplete = item.isComplete;
       const { todos } = this.state;
       const index = todos.indexOf(item);
-      this.setState({
-        todos: [
-          ...todos.slice(0, index),
-          {
-            ...item,
-            isComplete: !isComplete,
-          },
-          ...todos.slice(index + 1),
-        ],
-      });
+      this.setState(
+        {
+          todos: [
+            ...todos.slice(0, index),
+            {
+              ...item,
+              isComplete: !isComplete,
+            },
+            ...todos.slice(index + 1),
+          ],
+        },
+        () => {
+          localStorage.setItem("todos", JSON.stringify(this.state.todos));
+        }
+      );
     };
   };
 
   onAddClicked = () => {
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        { content: 'New item', isComplete: false },
-      ]
-    })
+    const idItem = shortid.generate();
+    const newItem = { 
+      id: idItem, 
+      content: "New item", 
+      isComplete: false 
+    };
+    this.setState(
+      {
+        todos: [
+          ...this.state.todos,
+          newItem
+        ],
+        showEdit: idItem
+      }, () => {
+        localStorage.setItem('todos', JSON.stringify(this.state.todos));
+        this.onShowEditInput(newItem.id) 
+      }
+    );
+    
   };
 
-  onShowEditInput = (item) => { 
+  onShowEditInput = (id) => {
+    const { todos } = this.state;
+    const editItem = todos.find((item) => {
+      return item.id === id
+    })
     return (event) => {
-      console.log(item);
-      const inputContent = document.getElementsByClassName("inputContent");
-      const editContent = document.getElementsByClassName("editContent");
-      
-      for (let i = 0; i < inputContent.length; i++) {
-        if (inputContent[i].defaultValue === item.content) {
-          editContent[i].setAttribute("class", "editContent showEditContent");
-          inputContent[i].focus();
-        }
-      }
 
       this.setState({
-        editItem: item.content
-      })
+        editItem: editItem.content,
+        showEdit: id
+      }, () => {
+        const inputContent = document.getElementById(id);
+        console.log(inputContent);
+        inputContent.focus();
+      });
+      
     };
   };
 
-  onEditClick = (item) => {
+  onEditClick = (id) => {
+    const { todos } = this.state;
+    const editItem = todos.find((item) => {
+      return item.id === id
+    })
     return (event) => {
-      const inputContent = document.getElementsByClassName("inputContent");
-      const editContent = document.getElementsByClassName("editContent");
-      
-      for (let i = 0; i < inputContent.length; i++) {
-        if (inputContent[i].defaultValue === item.content) {
-          editContent[i].setAttribute("class", "editContent");
-        }
-      }
-      item.content = this.state.editItem;
+      editItem.content = this.state.editItem ? this.state.editItem : editItem.content;
       this.setState({
-        editItem: ''
-      })
-      console.log(this.state.todos)
+        editItem: "",
+        showEdit: ""
+      });
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
     };
   };
 
@@ -96,7 +115,7 @@ class App extends Component {
   };
 
   render() {
-    const { todos } = this.state;
+    const { todos, showEdit } = this.state;
     return (
       <div className="App">
         <Header />
@@ -118,11 +137,12 @@ class App extends Component {
                     return (
                       <ToDoItem
                         item={item}
+                        showEdit={showEdit}
                         index={index}
-                        key={index}
+                        key={item.id}
                         onClick={this.onItemClicked(item)}
-                        onShowEditInput={this.onShowEditInput(item)}
-                        onEditClick={this.onEditClick(item)}
+                        onShowEditInput={this.onShowEditInput(item.id)}
+                        onEditClick={this.onEditClick(item.id)}
                         onChange={this.onChange}
                       />
                     );
@@ -135,11 +155,12 @@ class App extends Component {
                     return (
                       <ToDoItem
                         item={item}
+                        showEdit={showEdit}
                         index={index}
-                        key={index}
+                        key={item.id}
                         onClick={this.onItemClicked(item)}
-                        onShowEditInput={this.onShowEditInput(item)}
-                        onEditClick={this.onEditClick(item)}
+                        onShowEditInput={this.onShowEditInput(item.id)}
+                        onEditClick={this.onEditClick(item.id)}
                         onChange={this.onChange}
                       />
                     );

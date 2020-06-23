@@ -7,7 +7,8 @@ import IconEditDone from "../images/edit-done.svg";
 class ToDoItem extends Component {
   render() {
     const {
-      item,
+      item, 
+      showEdit,
       index,
       onClick,
       onShowEditInput,
@@ -25,12 +26,17 @@ class ToDoItem extends Component {
           <span className="itemContent" onClick={onClick}>
             {item.content}
           </span>
-          <div className="editContent">
+          <div 
+            className={classNames("editContent", {
+              "showEditContent": showEdit === item.id
+            })}
+          >
             <input
               name="editItem"
               className="inputContent"
               defaultValue={item.content}
               onChange={onChange}
+              id={item.id}
             />
             <button className="btn-edit" onClick={onEditClick}>
               Go
