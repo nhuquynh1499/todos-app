@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import shortid from 'shortid';
+import shortid from "shortid";
 import "./App.css";
 import ToDoItem from "./components/ToDoItem";
 import Footer from "./components/Footer";
@@ -12,6 +12,7 @@ class App extends Component {
     this.state = {
       newItem: "",
       editItem: "",
+      isActive: "",
       idNow: "abc",
       todos: localStorage.getItem("todos")
         ? JSON.parse(localStorage.getItem("todos"))
@@ -52,42 +53,41 @@ class App extends Component {
 
   onAddClicked = () => {
     const idItem = shortid.generate();
-    const newItem = { 
-      id: idItem, 
-      content: "New item", 
-      isComplete: false 
+    const newItem = {
+      id: idItem,
+      content: "New item",
+      isComplete: false,
     };
     this.setState(
       {
-        todos: [
-          ...this.state.todos,
-          newItem
-        ],
-        idNow: idItem
-      }, () => {
-        localStorage.setItem('todos', JSON.stringify(this.state.todos));
-        this.onShowEditInput(newItem.id) 
+        todos: [...this.state.todos, newItem],
+        idNow: idItem,
+      },
+      () => {
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
+        this.onShowEditInput(newItem.id);
       }
     );
-    
   };
 
   onShowEditInput = (id) => {
     const { todos } = this.state;
     const editItem = todos.find((item) => {
-      return item.id === id
-    })
+      return item.id === id;
+    });
     return (event) => {
-
-      this.setState({
-        editItem: editItem.content,
-        idNow: id
-      }, () => {
-        const inputContent = document.getElementById(id);
-        console.log(inputContent);
-        inputContent.focus();
-      });
-      
+      this.setState(
+        {
+          editItem: editItem.content,
+          idNow: id,
+          isActive: id,
+        },
+        () => {
+          const inputContent = document.getElementById(id);
+          console.log(inputContent);
+          inputContent.focus();
+        }
+      );
     };
   };
 
@@ -96,15 +96,17 @@ class App extends Component {
       const { todos } = this.state;
       const editItem = todos.find((item) => {
         return item.id === this.state.idNow;
-      })
-      editItem.content = this.state.editItem ? this.state.editItem : editItem.content;
+      });
+      editItem.content = this.state.editItem
+        ? this.state.editItem
+        : editItem.content;
       this.setState({
         editItem: "",
-        idNow: ""
+        idNow: "",
       });
       localStorage.setItem("todos", JSON.stringify(this.state.todos));
-    };
-  }
+    }
+  };
 
   onChange = (e) => {
     const name = e.target.name;
@@ -120,20 +122,17 @@ class App extends Component {
       const index = todos.indexOf(item);
       this.setState(
         {
-          todos: [
-            ...todos.slice(0, index),
-            ...todos.slice(index + 1)
-          ],
+          todos: [...todos.slice(0, index), ...todos.slice(index + 1)],
         },
         () => {
           localStorage.setItem("todos", JSON.stringify(this.state.todos));
         }
       );
     };
-  }
+  };
 
   render() {
-    const { todos, idNow } = this.state;
+    const { todos, idNow, isActive } = this.state;
     return (
       <div className="App">
         <Header />
@@ -158,6 +157,7 @@ class App extends Component {
                         idNow={idNow}
                         index={index}
                         key={item.id}
+                        isActive={isActive}
                         onClick={this.onItemClicked(item)}
                         onShowEditInput={this.onShowEditInput(item.id)}
                         onKeyUp={this.onKeyUp}

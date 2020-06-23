@@ -1,10 +1,14 @@
+img {
+  cursor: pointer;
+}
+
 .ToDoItem {
   font-weight: 600;
   font-size: 12px;
   color: #4d4d4d;
   display: flex;
   align-items: center;
-  border: 2px solid #5DB3BE;
+  border: 2px solid #5db3be;
   padding: 15px 20px;
   margin: 5px;
   border-radius: 7px;
@@ -30,12 +34,12 @@
 
 .ToDoItem-done {
   color: white;
-  background-color: #94D6DF;
+  background-color: #94d6df;
 }
 
-.ToDoItem-done span{
+.ToDoItem-done span {
   text-decoration: line-through;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .ToDoItem .showContent .editContent {
@@ -45,7 +49,6 @@
 
 .ToDoItem .showContent .showEditContent {
   display: block;
-  position: absolute;
 }
 
 .ToDoItem .showContent .itemContent {
