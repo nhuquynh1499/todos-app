@@ -3,6 +3,7 @@ import classNames from "classnames";
 import "./ToDoItem.css";
 import IconEdit from "../images/edit.svg";
 import IconEditDone from "../images/edit-done.svg";
+import IconDelete from "../images/delete.svg";
 
 class ToDoItem extends Component {
   render() {
@@ -14,6 +15,7 @@ class ToDoItem extends Component {
       onShowEditInput,
       onEditClick,
       onChange,
+      onDeleteItem
     } = this.props;
     return (
       <div
@@ -46,6 +48,9 @@ class ToDoItem extends Component {
         <div onClick={onShowEditInput}>
           { !item.isComplete && <img src={IconEdit} alt="" /> }
           { item.isComplete && <img src={IconEditDone} alt="" /> }
+        </div>
+        <div onClick={onDeleteItem}>
+          <img src={IconDelete} />
         </div>
       </div>
     );

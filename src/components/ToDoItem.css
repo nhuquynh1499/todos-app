@@ -25,6 +25,7 @@
 
 .ToDoItem img {
   width: 16px;
+  margin-left: 5px;
 }
 
 .ToDoItem-done {

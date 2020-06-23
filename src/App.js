@@ -114,6 +114,24 @@ class App extends Component {
     });
   };
 
+  onDeleteItem = (item) => {
+    return (event) => {
+      const { todos } = this.state;
+      const index = todos.indexOf(item);
+      this.setState(
+        {
+          todos: [
+            ...todos.slice(0, index),
+            ...todos.slice(index + 1)
+          ],
+        },
+        () => {
+          localStorage.setItem("todos", JSON.stringify(this.state.todos));
+        }
+      );
+    };
+  }
+
   render() {
     const { todos, showEdit } = this.state;
     return (
@@ -144,6 +162,7 @@ class App extends Component {
                         onShowEditInput={this.onShowEditInput(item.id)}
                         onEditClick={this.onEditClick(item.id)}
                         onChange={this.onChange}
+                        onDeleteItem={this.onDeleteItem(item)}
                       />
                     );
                 })}
@@ -162,6 +181,7 @@ class App extends Component {
                         onShowEditInput={this.onShowEditInput(item.id)}
                         onEditClick={this.onEditClick(item.id)}
                         onChange={this.onChange}
+                        onDeleteItem={this.onDeleteItem(item)}
                       />
                     );
                 })}
