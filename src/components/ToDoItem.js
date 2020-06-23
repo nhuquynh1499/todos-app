@@ -15,10 +15,8 @@ class ToDoItem extends Component {
       onShowEditInput,
       onKeyUp,
       onChange,
-      isActive,
       onDeleteItem,
     } = this.props;
-    console.log(isActive);
     return (
       <div
         className={classNames("ToDoItem", {
@@ -27,7 +25,7 @@ class ToDoItem extends Component {
       >
         <span className="stt">{parseInt(index) + 1}.</span>
         <div className="showContent">
-          {isActive !== item.id && (
+          {idNow !== item.id && (
             <span className="itemContent" onClick={onClick}>
               {item.content}
             </span>

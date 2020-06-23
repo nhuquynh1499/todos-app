@@ -12,8 +12,7 @@ class App extends Component {
     this.state = {
       newItem: "",
       editItem: "",
-      isActive: "",
-      idNow: "abc",
+      idNow: "",
       todos: localStorage.getItem("todos")
         ? JSON.parse(localStorage.getItem("todos"))
         : [],
@@ -80,7 +79,6 @@ class App extends Component {
         {
           editItem: editItem.content,
           idNow: id,
-          isActive: id,
         },
         () => {
           const inputContent = document.getElementById(id);
@@ -132,7 +130,7 @@ class App extends Component {
   };
 
   render() {
-    const { todos, idNow, isActive } = this.state;
+    const { todos, idNow } = this.state;
     return (
       <div className="App">
         <Header />
@@ -157,7 +155,6 @@ class App extends Component {
                         idNow={idNow}
                         index={index}
                         key={item.id}
-                        isActive={isActive}
                         onClick={this.onItemClicked(item)}
                         onShowEditInput={this.onShowEditInput(item.id)}
                         onKeyUp={this.onKeyUp}
