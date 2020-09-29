@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import './style.css';
-import AddIcon from '../../assets/add.svg'
+import React from "react";
+import "./style.css";
+import AddIcon from "../../assets/add.svg";
 
-class Footer extends Component {
-  render() {
-    const { onClick } = this.props;
-    return (
-      <div className="Footer" onClick={onClick}>
-        <img src={AddIcon} alt=""/>
-      </div>
-    )
-  }
+export default function Footer(props) {
+  const { onClick } = props;
+  return (
+    <div className="Footer" onClick={onClick}>
+      <img src={AddIcon} alt="" />
+    </div>
+  );
 }
-
-export default Footer
