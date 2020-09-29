@@ -4,7 +4,7 @@ import "./App.css";
 import ToDoItem from "./components/ToDoItem";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import IconBackground from "./images/background.svg";
+import IconBackground from "./assets/background.svg";
 
 class App extends Component {
   constructor() {

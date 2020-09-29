@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import "./ToDoItem.css";
-import IconEdit from "../images/edit.svg";
-import IconEditDone from "../images/edit-done.svg";
-import IconDelete from "../images/delete.svg";
+import IconEdit from "../assets/edit.svg";
+import IconEditDone from "../assets/edit-done.svg";
+import IconDelete from "../assets/delete.svg";
 
 class ToDoItem extends Component {
   render() {
