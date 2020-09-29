@@ -44,9 +44,6 @@ class ToDoItem extends Component {
               autoFocus
               onKeyUp={onKeyUp}
             />
-            {/* <button className="btn-edit" onClick={onEditClick}>
-              Go
-            </button> */}
           </div>
         </div>
         <div onClick={onShowEditInput}>

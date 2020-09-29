@@ -3,7 +3,7 @@ import shortid from "shortid";
 import "./App.css";
 import ToDoItem from "./components/ToDoItem";
 import Footer from "./components/Footer";
-import Header from "./components/Header";
+import Header from "./components/Header/index";
 import IconBackground from "./assets/background.svg";
 
 class App extends Component {
@@ -16,15 +16,7 @@ class App extends Component {
       todos: localStorage.getItem("todos")
         ? JSON.parse(localStorage.getItem("todos"))
         : [],
-      // todos: [
-      //   { content: "Go to market", isComplete: true },
-      //   { content: "Buy to food", isComplete: false },
-      //   { content: "Make dinner", isComplete: false },
-      // ],
     };
-
-    // this.onAddClicked = this.onAddClicked.bind(this);
-    // this.onChange = this.onChange.bind(this);
   }
 
   onItemClicked = (item) => {
