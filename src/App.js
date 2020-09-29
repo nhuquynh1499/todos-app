@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import shortid from "shortid";
 import "./App.css";
 import ToDoItem from "./components/ToDoItem";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/index";
 import Header from "./components/Header/index";
 import IconBackground from "./assets/background.svg";
 

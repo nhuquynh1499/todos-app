@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './Footer.css';
-import AddIcon from '../assets/add.svg'
+import './style.css';
+import AddIcon from '../../assets/add.svg'
 
 class Footer extends Component {
   render() {
