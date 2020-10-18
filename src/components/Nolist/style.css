@@ -1,0 +1,12 @@
+
+.nolist .icon {
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+.nolist .notification {
+  background-color: white;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
